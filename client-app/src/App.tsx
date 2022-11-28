@@ -3,8 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
+
+    const func = () => {
+        fetch("api/test").then(response => response.json()).then(data => console.log(data));
+    }
+
+    return (
+        <div className="App">
+            <button onClick={func}>gdjfghdkjfhgdkjfhgkdjg</button>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
