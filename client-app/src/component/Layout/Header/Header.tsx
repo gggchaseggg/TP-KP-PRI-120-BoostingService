@@ -5,11 +5,38 @@ import PATHS from "../../../data/paths";
 
 const Header = () => {
     return (
-        <div>
-            <div className={style.textColor}>
-                ffffff
-            </div>
-
+        <div className={style.wrapper}>
+            <nav className={style.navigation}>
+                <ul className={style.navList}>
+                    <li className={style.navItem}>
+                        <Link to={PATHS.MAIN}>
+                            <img src="/img/Layout/logo.png" alt="лого" />
+                        </Link>
+                    </li>
+                    <li className={style.navItem}>
+                        <Link to={PATHS.PROGRAMS}>
+                            <span>Все специальности</span>
+                        </Link>
+                    </li>
+                    <li className={style.navItem}>
+                        <Link to={PATHS.EVENTS}>Мероприятия</Link>
+                    </li>
+                    <li className={style.navItem}>
+                        <Link to={PATHS.NEWS}>Новости</Link>
+                    </li>
+                    <li className={style.navItem}>
+                        <Link to={PATHS.CAREER}>Карьера</Link>
+                    </li>
+                    <li className={style.navItem}>
+                        <a href="tel:89190127950" className={style.tel}>
+                            8 919 012-79-50
+                        </a>
+                    </li>
+                    <li className={style.navItem}>
+                        <span>Войти</span>
+                    </li>
+                </ul>
+            </nav>
         </div>
     );
 };
