@@ -1,7 +1,8 @@
 ﻿import React from "react";
 import style from "./Header.module.scss";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import PATHS from "../../../data/paths";
+import logo from "./logo.png";
 
 const Header = () => {
     return (
@@ -10,30 +11,26 @@ const Header = () => {
                 <ul className={style.navList}>
                     <li className={style.navItem}>
                         <Link to={PATHS.MAIN}>
-                            <img src="/img/Layout/logo.png" alt="лого" />
+                            <img src={logo} className={style.navItem} />
                         </Link>
                     </li>
                     <li className={style.navItem}>
-                        <Link to={PATHS.PROGRAMS}>
-                            <span>Все специальности</span>
-                        </Link>
+                        <NavLink to={PATHS.SERVICES} className={style.colorLink}>Услуги</NavLink>
                     </li>
                     <li className={style.navItem}>
-                        <Link to={PATHS.EVENTS}>Мероприятия</Link>
+                        <NavLink to={PATHS.WARRANTY} className={style.colorLink}>Гарантии</NavLink>
                     </li>
                     <li className={style.navItem}>
-                        <Link to={PATHS.NEWS}>Новости</Link>
+                        <NavLink to={PATHS.MONITORING} className={style.colorLink}>Мониторинг</NavLink>
                     </li>
                     <li className={style.navItem}>
-                        <Link to={PATHS.CAREER}>Карьера</Link>
+                        <NavLink to={PATHS.COMMAND} className={style.colorLink}>Наша команда</NavLink>
                     </li>
                     <li className={style.navItem}>
-                        <a href="tel:89190127950" className={style.tel}>
-                            8 919 012-79-50
-                        </a>
+                        <NavLink to={PATHS.WORK} className={style.colorLink}>Работа</NavLink>
                     </li>
                     <li className={style.navItem}>
-                        <span>Войти</span>
+                        <NavLink to={PATHS.LK} className={style.colorLink}>Войти</NavLink>
                     </li>
                 </ul>
             </nav>

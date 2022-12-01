@@ -1,9 +1,10 @@
 ﻿.wrapper {
     width: 100%;
-    height: 110px;
+    height: 90px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
     background: linear-gradient(to top left, #570A57, #2E0249);
-    color: papayawhip;
+    text-decoration: none;
+    margin-top:-16px;
 }
 
 nav.navigation {
@@ -11,12 +12,14 @@ nav.navigation {
     width: 1182px;
     margin-left: auto;
     margin-right: auto;
+    text-decoration: none;
 }
 
 ul.navList {
     height: 100%;
     width: 100%;
     display: flex;
+    padding-left: 1%;
     justify-content: space-between;
     align-items: center;
 }
@@ -25,10 +28,18 @@ li.navItem {
     list-style: none;
     display: flex;
     align-items: center;
+    color: papayawhip;
+    text-decoration: none;
+}
 
-    & > a {
-        display: flex;
-        align-items: center;
+.colorLink {
+    padding-top: 2px;
+    border-bottom: 2px solid transparent;
+
+
+    &:hover, &:any-link, &:visited, &:active {
+        color: #F9F9F9;
+        text-decoration: none;
     }
 }
 
@@ -52,6 +63,7 @@ a.tel {
     border-bottom: 2px solid transparent;
 
     &:hover {
-        border-bottom: 2px solid black;
+        color: papayawhip;
+        text-decoration: none;
     }
 }

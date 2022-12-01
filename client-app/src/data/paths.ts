@@ -1,12 +1,14 @@
 ﻿enum PATHS {
     MAIN = "/",
     OPEN_DOORS = "/open-doors",
-    NEWS = "/news",
+    MONITORING = "/monitoring",
     TEST = "/test",
     WORLD_IT = "/world-it",
-    PROGRAMS = "/programs",
-    EVENTS = "/events",
-    CAREER = "/career",
+    SERVICES = "/services",
+    WARRANTY = "/warranty",
+    COMMAND = "/command",
+    WORK = "/work",
+    LK = "/lk"
 }
 
 export default PATHS;
