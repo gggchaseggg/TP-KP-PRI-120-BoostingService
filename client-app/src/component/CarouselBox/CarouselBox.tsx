@@ -2,12 +2,13 @@
 import Carousel from "react-bootstrap/Carousel";
 import carousel1 from "./img/carousel_1.jpg";
 import carousel2 from "./img/carousel_2.jpg";
+import style from "./CarouselBox.module.scss"
 
 function Carouselbox() {
-        return (
-            <Carousel>
+    return (
+            <Carousel fade >
                 <Carousel.Item>
-                    <img className="w-100"
+                    <img className="d-block w-100"
                         src={carousel1}
                         alt="Carousel1" />
                     <Carousel.Caption>
@@ -16,7 +17,7 @@ function Carouselbox() {
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
-                    <img className="w-100"
+                    <img className="d-block w-100"
                         src={carousel2}
                         alt="Carousel2" />
                     <Carousel.Caption>
@@ -25,7 +26,7 @@ function Carouselbox() {
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
-                    <img className="w-100"
+                    <img className="d-block w-100"
                         src={carousel1}
                         alt="Carousel1" />
                     <Carousel.Caption>
