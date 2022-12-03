@@ -1,46 +1,36 @@
 ﻿import React, { Component } from "react";
 import style from "./Main.module.scss";
 import CarouselBox from "../../component/CarouselBox/CarouselBox";
+import achiv1 from "./img/achiv2.png"
+import achiv2 from "./img/achiv2.png"
 
 export default class Main extends Component {
     render(){
         return (
             <div className={style.colorBack}>
                 <CarouselBox />
-                <div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </div>
-                <div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </div>
-                <div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </div>
-                <div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </div>
-                <div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <div className={style.achivments}>
+                    <div className={style.achiv_rect}>
+                    </div>
+                    <h1> Преимущества </h1>
+                    <div className={style.achivments_elem}>
+                        <div className={style.achivments_block}>
+                            <img src="/img/protect.svg"/>
+                            <p>Купить или продать - здесь безопасно!</p>
+                        </div>
+                        <div className={style.achivments_block}>
+                            <img src="/img/stars.svg" />
+                            <p>Осуществляем любые мечты</p>
+                        </div>
+                        <div className={style.achivments_block}>
+                            <img src="/img/podium.svg" />
+                            <p>Команда профессионалов!</p>
+                        </div>
+                        <div className={style.achivments_block}>
+                            <img src="/img/cup.svg" />
+                            <p >Многолетний стаж, тысячи клиентов!</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
