@@ -8,7 +8,7 @@
     WARRANTY = "/warranty",
     COMMAND = "/command",
     WORK = "/work",
-    LK = "/lk",
+    LOGIN = "/login",
     ABOUT = "/about",
     USER_AGREEMENT = "/user_agreement",
     SUPPORT = "/support"

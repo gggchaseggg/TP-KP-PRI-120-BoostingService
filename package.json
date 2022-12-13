@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "reactjs-popup": "^2.0.5",
     "swiper": "^8.4.5"
   }
 }
