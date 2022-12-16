@@ -18,7 +18,7 @@ const Login = () => {
             </div>
             <div className={style.loginForm}>
                 <form>
-                    <input type="text"
+                    <input type="email"
                         className={style.input}
                         placeholder={"E-mail"}
                         autoComplete={"off"} />
@@ -31,11 +31,15 @@ const Login = () => {
             </div>
             <div className={style.registerForm}>
                 <form>
-                    <input type="text"
+                    <input type="nickname"
+                        className={style.input}
+                        placeholder={"Имя пользователя"}
+                        autoComplete={"off"} />
+                    <input type="email"
                         className={style.input}
                         placeholder={"E-mail"}
                         autoComplete={"off"} />
-                    <input type="email"
+                    <input type="phone"
                         className={style.input}
                         placeholder={"Номер телефона"}
                         autoComplete={"off"} />
