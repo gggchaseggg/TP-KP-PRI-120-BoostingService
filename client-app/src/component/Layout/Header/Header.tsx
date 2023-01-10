@@ -3,7 +3,7 @@ import style from "./Header.module.scss";
 import { Link, NavLink } from "react-router-dom";
 import PATHS from "../../../data/paths";
 import logo from "./logo.png";
-
+import HeaderLogin from "./HeaderLogin/HeaderLogin";
 
 export default function Header(){
    
@@ -39,7 +39,8 @@ export default function Header(){
                         </li>
                         <div>
                             <div>
-                                <NavLink to={PATHS.LOGIN} className={style.colorLink}>Войти</NavLink>
+                                <HeaderLogin/>
+                                {/*<navlink to={paths.login} classname={style.colorlink}>войти</navlink>*/}
                             </div>
                         </div>
                     </ul>
