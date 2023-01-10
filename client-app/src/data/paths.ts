@@ -9,6 +9,7 @@
     COMMAND = "/command",
     WORK = "/work",
     LOGIN = "/login",
+    PROFILE = "/profile",
     ABOUT = "/about",
     USER_AGREEMENT = "/user_agreement",
     SUPPORT = "/support"
