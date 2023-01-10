@@ -7,5 +7,7 @@ namespace BoostingService.Context
     {
         public BoostContext(DbContextOptions<BoostContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }
