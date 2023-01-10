@@ -12,15 +12,19 @@ namespace BoostingService.Models
         public string email { get; set; }
         public string phone { get; set; }
         public string password { get; set; }
-        public string role { get; set; }
+        public string? role { get; set; }
 
-        public User(string nickname, string email, string password, string phone, string role = "user")
+        public User(string nickname, string email, string phone, string password)
         {
             this.nickname = nickname;
             this.email = email;
             this.password = password;
             this.phone = phone;
-            this.role = role;
+            this.role = "user";
+        }
+        public User()
+        {
+
         }
     }
 }
