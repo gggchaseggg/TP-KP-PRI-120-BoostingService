@@ -1,12 +1,38 @@
 ﻿import React, { useState } from "react";
 import style from "./Service.module.scss";
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
+type FormCalibrationValueType = {
+
+    calibStartMMR: number;
+    calibEndMMR: number;
+    calibCountLP: number;
+    calibCost: number;
+
+}
 
 export default function Service() {
+
+    const navigate = useNavigate();
+
+    const {
+        handleSubmit: calibrationHandleSubmit,
+        reset: calibrationReset,
+        setError: calibrationSetError
+    } = useForm<FormCalibrationValueType>();
+
+    let order = {
+        startMMR: null,
+        endMMR: null,
+        countMMR: null,
+        cost: null
+    }
     const [width, setWidth] = useState(300);
     const [mmrnow, setMmrnow] = useState(0);
     const [lastmmr, setLastmmr] = useState(1);
     const [lpcountgame, setLpcountgame] = useState(3);
+    const [countwins, setCountwins] = useState(3);
 
     const changeWidth = (event: any) => {
         setWidth(event.target.value);
@@ -22,6 +48,10 @@ export default function Service() {
 
     const lp = (event: any) => {
         setLpcountgame(event.target.value);
+    };
+
+    const wins = (event: any) => {
+        setCountwins(event.target.value);
     };
 
     return (
@@ -41,16 +71,6 @@ export default function Service() {
                 <label htmlFor={style.lp}
                     id={style.lpLabel}
                 >LP
-                </label>
-                <input type="radio" name="logReg" id={style.wins} />
-                <label htmlFor={style.wins}
-                    id={style.winsLabel}
-                >Победы
-                </label>
-                <input type="radio" name="logReg" id={style.behavior} />
-                <label htmlFor={style.behavior}
-                    id={style.behaviorLabel}
-                >Порядочность
                 </label>
             </div>
 
@@ -75,9 +95,9 @@ export default function Service() {
                         </div>
                         <div className={style.forDisplay3}>
                             <label>Конечный ММР: </label>
-                            {// @ts-ignore
+                            <h5>{// @ts-ignore
                                 Number.parseInt(width) + Number.parseInt(mmrnow)
-                            }
+                            }</h5>
                         </div>
                     </div>
                     <div className={style.forDisplay4}>
@@ -109,7 +129,7 @@ export default function Service() {
                         <h6 className={style.discount}>1200 руб.</h6>
                         <h5>от 1 до 3 дней</h5>
                     </div>
-                    <button type="submit" className={style.submit}>Калибровка</button>
+                    <button type="submit" className={style.submit}>Оформить заказ</button>
                 </form>
             </div>
 
@@ -136,22 +156,9 @@ export default function Service() {
                         <h6 className={style.discount}>{lpcountgame * 60} руб.</h6>
                         <h5>от 1 до 2 дней</h5>
                     </div>
-                    <button type="submit" className={style.submit}>LP</button>
+                    <button type="submit" className={style.submit}>Оформить заказ</button>
                 </form>
             </div>
-
-            <div className={style.winsForm}>
-                <form>
-                    <button type="submit" className={style.submit}>Победы</button>
-                </form>
-            </div>
-
-            <div className={style.behaviorForm}>
-                <form>
-                    <button type="submit" className={style.submit}>Порядочность</button>
-                </form>
-            </div>
-
         </div>
     );
 }

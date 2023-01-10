@@ -12,7 +12,7 @@
 
 //Кнопки  для перехода между услугами
 .radioButtons {
-    width: 1000px;
+    width: 900px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,7 +49,7 @@ input#behavior:checked ~ label#behaviorLabel {
     display: none;
     padding-top: 50px;
     height: auto;
-    width: 1000px;
+    width: 900px;
     border: 2px solid rgba(0, 0, 0, 0.1);
     border-radius: 6px;
 
@@ -66,29 +66,30 @@ input#behavior:checked ~ label#behaviorLabel {
 }
 
 .forDisplay {
+    display: flex;
+    justify-content: space-around;
     height: 100%;
     width: 100%;
-    display: flex;
-    align-items: center;
 }
 
 .forDisplay1 {
     display: flex;
-    padding-left: 8%;
-    margin-right: 8%;
+    height: 50px;
+    width: 140px;
+
     label {
-        margin-top: 7px;
+        font-size: 14px;
         padding-right: 7px;
     }
 }
 
 .forDisplay2 {
+    height: 50px;
+    width: 140px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-right: -px;
-    padding-left: 2%;
-    margin-right: 8%;
 }
 
 .forDisplay3 {
@@ -97,8 +98,14 @@ input#behavior:checked ~ label#behaviorLabel {
     align-items: center;
     height: 50px;
     width: 140px;
-    //padding-left: 3%;
-    //margin-right: 3%;
+
+    label {
+        font-size: 14px;
+    }
+    h5{
+        margin-top: 0px;
+        color: black;
+    }
 }
 
 .forDisplay4 {
@@ -222,7 +229,7 @@ button.submit {
 
 input[type="range"] {
     -webkit-appearance: none;
-    margin-top: 30px;
+    margin-top: 15px;
     width: 200px;
     height: 7px;
     background: rgba(255, 255, 255, 0.6);
