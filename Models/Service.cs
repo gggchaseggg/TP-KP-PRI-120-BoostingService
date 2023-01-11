@@ -8,7 +8,7 @@ namespace BoostingService.Models
     public class Service
     {
         public int id { get; set; }
-        public int name { get; set; }
+        public string name { get; set; }
         public int cost { get; set; }
         public int discount { get; set; }
     }

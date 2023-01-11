@@ -19,6 +19,6 @@ namespace BoostingService.Models
         public int endMMR { get; set; }
         public int countLP { get; set; }
         public int cost { get; set; }
-        public string Status { get; set; }
+        public string status { get; set; }
     }
 }
