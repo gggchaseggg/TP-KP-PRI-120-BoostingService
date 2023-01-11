@@ -26,9 +26,6 @@ namespace BoostingService.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("boosterid")
                         .HasColumnType("int");
 
@@ -59,6 +56,9 @@ namespace BoostingService.Migrations
                     b.Property<int>("startMMR")
                         .HasColumnType("int");
 
+                    b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("userid")
                         .HasColumnType("int");
 
@@ -83,8 +83,11 @@ namespace BoostingService.Migrations
                     b.Property<int>("cost")
                         .HasColumnType("int");
 
-                    b.Property<int>("name")
+                    b.Property<int>("discount")
                         .HasColumnType("int");
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
