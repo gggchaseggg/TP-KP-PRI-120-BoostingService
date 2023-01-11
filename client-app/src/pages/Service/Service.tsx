@@ -1,38 +1,39 @@
-﻿import React, { useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import style from "./Service.module.scss";
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import PATHS from "../../data/paths";
+import axios from "axios";
 
-type FormCalibrationValueType = {
+type FormType = {
+    email: string;
+    service: string;
+    startMMR: number | null;
+    endMMR: number | null;
+    countLP: number | null;
+    cost: number;
+}
 
-    calibStartMMR: number;
-    calibEndMMR: number;
-    calibCountLP: number;
-    calibCost: number;
+function AuthButton() {
+    return (
+        <Link to={PATHS.LOGIN} className={style.submit}>Авторизоваться</Link>
+    )
+}
 
+function sendOrder(order: FormType) {
+    axios.post("/api/order/create", order).then(r => console.log(r)).catch(e => console.info(e))
 }
 
 export default function Service() {
 
     const navigate = useNavigate();
 
-    const {
-        handleSubmit: calibrationHandleSubmit,
-        reset: calibrationReset,
-        setError: calibrationSetError
-    } = useForm<FormCalibrationValueType>();
-
-    let order = {
-        startMMR: null,
-        endMMR: null,
-        countMMR: null,
-        cost: null
-    }
     const [width, setWidth] = useState(300);
     const [mmrnow, setMmrnow] = useState(0);
     const [lastmmr, setLastmmr] = useState(1);
     const [lpcountgame, setLpcountgame] = useState(3);
-    const [countwins, setCountwins] = useState(3);
+    const [isAuth, setIsAuth] = useState(!!localStorage.getItem("email"))
+    const [canOrder, setCanOrder] = useState(true);
 
     const changeWidth = (event: any) => {
         setWidth(event.target.value);
@@ -50,9 +51,87 @@ export default function Service() {
         setLpcountgame(event.target.value);
     };
 
-    const wins = (event: any) => {
-        setCountwins(event.target.value);
-    };
+    useEffect(() => {
+        let email = localStorage.getItem("email")
+        if (email !== null) axios.get(`/api/order/isUserHasOrders?email=${email}`).then((r) => {
+            if (r.data) setCanOrder(false)
+            else if (!r.data) setCanOrder(true)
+            else console.log(r)
+        })
+    }, [])
+
+    const {
+        register: boostRegister,
+        handleSubmit: boostHandleSubmit,
+        reset: boostReset,
+        setError: boostSetError
+    } = useForm<FormType>();
+
+    const onBoostSubmit: SubmitHandler<FormType> = async (data) => {
+        if (!canOrder) alert("У вас уже есть заказ, завершите его или отмените")
+        else if (confirm("Вы действительно хотите оформить заказ?")) {
+            const boostOrder: FormType = {
+                cost: +width * 2.5 * 0.66,
+                countLP: 0,
+                email: localStorage.getItem("email") as string,
+                endMMR: +mmrnow + +width,
+                service: data.service,
+                startMMR: +mmrnow
+            }
+            sendOrder(boostOrder)
+        }
+
+    }
+
+    const {
+        register: calibrationRegister,
+        handleSubmit: calibrationHandleSubmit,
+        reset: calibrationReset,
+        setError: calibrationSetError
+    } = useForm<FormType>();
+
+    const onCalibrationSubmit: SubmitHandler<FormType> = async (data) => {
+        if (!canOrder) alert("У вас уже есть заказ, завершите его или отмените")
+        else if (confirm("Вы действительно хотите оформить заказ?")) {
+            const calibrationOrder: FormType = {
+                cost: 1088,
+                countLP: 0,
+                email: localStorage.getItem("email") as string,
+                // @ts-ignore
+                startMMR: +data.startMMR,
+                // @ts-ignore
+                endMMR: +data.startMMR + 400,
+                service: data.service
+            }
+            sendOrder(calibrationOrder)
+        }
+
+    }
+
+    const {
+        register: lpRegister,
+        handleSubmit: lpHandleSubmit,
+        reset: lpReset,
+        setError: lpSetError
+    } = useForm<FormType>();
+
+    const onLpSubmit: SubmitHandler<FormType> = async (data) => {
+        if (!canOrder) alert("У вас уже есть заказ, завершите его или отмените")
+        else if (confirm("Вы действительно хотите оформить заказ?")) {
+            const lpOrder: FormType = {
+                // @ts-ignore
+                cost: +data.countLP * 50,
+                // @ts-ignore
+                countLP: +data.countLP,
+                email: localStorage.getItem("email") as string,
+                startMMR: 0,
+                endMMR: 0,
+                service: data.service
+            }
+            sendOrder(lpOrder)
+        }
+
+    }
 
     return (
         <div className={style.wrapper}>
@@ -75,11 +154,20 @@ export default function Service() {
             </div>
 
             <div className={style.boostForm}>
-                <form>
+                <form onSubmit={boostHandleSubmit(onBoostSubmit)}>
+                    <input type="hidden" value="boost" {...boostRegister("service")} />
                     <div className={style.forDisplay}>
                         <div className={style.forDisplay1}>
                             <label htmlFor="mmrnow">Текущий ММР: </label>
-                            <input className={style.input} type="text" id="mmrnow" name="mmrnow" placeholder={"0"} autoComplete={"off"} onChange={changeMMR}  value={ mmrnow }/>
+                            <input
+                                className={style.input}
+                                type="text"
+                                id="mmrnow"
+                                placeholder={"0"}
+                                autoComplete={"off"}
+                                value={mmrnow}
+                                {...boostRegister("startMMR", { onChange: changeMMR })}
+                            />
                         </div>
                         <div className={style.forDisplay2}>
                             <input
@@ -95,6 +183,15 @@ export default function Service() {
                         </div>
                         <div className={style.forDisplay3}>
                             <label>Конечный ММР: </label>
+
+                            <input
+                                type="hidden"
+                                id="endMMR"
+                                value={// @ts-ignore
+                                    Number.parseInt(width) + Number.parseInt(mmrnow)
+                                }
+                                {...boostRegister("endMMR")}
+                            />
                             <h5>{// @ts-ignore
                                 Number.parseInt(width) + Number.parseInt(mmrnow)
                             }</h5>
@@ -102,19 +199,30 @@ export default function Service() {
                     </div>
                     <div className={style.forDisplay4}>
                         <h5>{width * 2.5 * 0.66} руб.</h5>
-                        <h6 className={ style.discount }>{width * 2.5} руб.</h6>
-                        <h5>{5 * (Math.trunc(width / 1000) + 1)}-{5 * (Math.trunc(width / 1000) + 1)+3} дней </h5>
+                        <h6 className={style.discount}>{width * 2.5} руб.</h6>
+                        <h5>{5 * (Math.trunc(width / 1000) + 1)}-{5 * (Math.trunc(width / 1000) + 1) + 3} дней </h5>
                     </div>
-                    <button type="submit" className={style.submit}>Оформить заказ</button>
+                    {isAuth
+                        ? <button type="submit" className={style.submit}>Оформить заказ1</button>
+                        : <AuthButton />}
                 </form>
             </div>
 
             <div className={style.calibrationForm}>
-                <form>
+                <form onSubmit={calibrationHandleSubmit(onCalibrationSubmit)}>
+                    <input type="hidden" value="calibration" {...calibrationRegister("service")} />
                     <div className={style.forDisplayCalibration}>
                         <div className={style.forDisplay1}>
                             <label htmlFor="lastmmr">Предыдущий ММР: </label>
-                            <input className={style.input} type="text" id="mmrnow" name="mmrnow" placeholder={"0"} autoComplete={"off"} onChange={lastMMR} value={lastmmr} />
+                            <input
+                                className={style.input}
+                                type="text"
+                                id="mmrnow"
+                                placeholder={"0"}
+                                autoComplete={"off"}
+                                value={lastmmr}
+                                {...calibrationRegister("startMMR", { onChange: lastMMR })}
+                            />
                         </div>
                         <div className={style.forDisplay5}>
                             <label>Конечный ММР: </label>
@@ -129,34 +237,39 @@ export default function Service() {
                         <h6 className={style.discount}>1200 руб.</h6>
                         <h5>от 1 до 3 дней</h5>
                     </div>
-                    <button type="submit" className={style.submit}>Оформить заказ</button>
+                    {isAuth
+                        ? <button type="submit" className={style.submit}>Оформить заказ2</button>
+                        : <AuthButton />}
                 </form>
             </div>
 
             <div className={style.lpForm}>
-                <form>
+                <form onSubmit={lpHandleSubmit(onLpSubmit)}>
+                    <input type="hidden" value="lp" {...lpRegister("service")} />
                     <div className={style.forDisplayCalibration}>
 
                         <div className={style.forDisplayCountGames}>
                             <label>Количество игр:</label>
                             <input
                                 type='range'
-                                onChange={lp}
                                 min={3}
                                 max={5}
                                 step={1}
                                 value={lpcountgame}
+                                {...lpRegister("countLP", { onChange: lp })}
                             >
                             </input>
                             <h5>{lpcountgame}</h5>
                         </div>
                     </div>
                     <div className={style.forDisplay4}>
-                        <h5>{lpcountgame*50} руб.</h5>
+                        <h5>{lpcountgame * 50} руб.</h5>
                         <h6 className={style.discount}>{lpcountgame * 60} руб.</h6>
                         <h5>от 1 до 2 дней</h5>
                     </div>
-                    <button type="submit" className={style.submit}>Оформить заказ</button>
+                    {isAuth
+                        ? <button type="submit" className={style.submit}>Оформить заказ</button>
+                        : <AuthButton />}
                 </form>
             </div>
         </div>
