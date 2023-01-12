@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin: 20px 10px;
 }
 
 .wrapper_row {
@@ -13,7 +14,7 @@
     display: flex;
     height: auto;
     width: 700px;
-    margin-top: 70px;
+    margin-top: 40px;
     border: 1px solid #C147E9;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
 
@@ -32,10 +33,53 @@
     flex-direction: column;
     height: auto;
     width: 500px;
-    margin-top: 70px;
+    margin-top: 40px;
     border: 1px solid #C147E9;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+
+    h5 {
+        margin-left: -120px;
+    }
+}
+
+button {
+    display: flex;
+    align-items: center;
     text-align: center;
+}
+
+.submit {
+    height: 50px;
+    width: 260px;
+    margin: 10px 10px;
+    background: linear-gradient(to top left,#810CA8, #C147E9);
+    border-radius: 6px;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 26px;
+    color: #FFFFFF;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        background: linear-gradient(to top left, #810CA8, #C147E9);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+        box-shadow: none;
+        transform: translate(1px,1px);
+    }
+}
+
+a.submit {
+    text-decoration: none;
+
+    &:hover {
+        color: white;
+    }
 }
 
 .infoUser {
@@ -52,60 +96,20 @@
     padding-top: 70px;
 }
 
-#service, #historyService {
-    display: none;
-}
-
-//Кнопки  для перехода между услугами
-.radioButtons {
-    width: 1200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    & label {
-        width: 50%;
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 40px;
-        text-align: center;
-        color: #000000;
-        border: 2px solid rgba(0, 0, 0, 0.1);
-        border-radius: 6px;
-        transition: border-bottom-color 0.3s linear;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}
-
-
-button.exitButton {
-    font-family: "Montserrat", sans-serif;
-    margin-top: 7px;
-    font-weight: 600;
-    font-size: 16px;
-    color: #DF5E42;
-    border: none;
-    outline: none;
-    background: none;
-    cursor: pointer;
-}
-
 .table {
     border-spacing: 0;
 
     td {
         padding: 10px;
-        border: 1px solid #515151;
+        border: 1px solid #810CA8;
     }
 
     thead {
-        background: gray;
+        background: #C147E9;
     }
 
     tbody > tr:nth-child(even) {
-        background: rgba(81, 81, 81, 0.3);
+        background: #E5B8F4;
     }
 }
 
@@ -115,4 +119,10 @@ button.exitButton {
     .userItem__login {
         margin-right: 10px;
     }
+}
+.achiv_rect {
+    background: linear-gradient(to top left, #A66CFF, #F7A4A4);
+    width: 100%;
+    height: 3px;
+    margin: 10px 0px;
 }

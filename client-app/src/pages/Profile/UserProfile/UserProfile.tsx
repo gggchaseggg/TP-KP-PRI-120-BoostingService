@@ -42,27 +42,34 @@ const UserProfile = () => {
                 </div>
                 <div className={style.wrapper1_2}>
                     <div>
-                        
                         <h4>Текущий заказ</h4>
-                        <h3>{newOrder?.startMMR}</h3>
-                        <h5>{newOrder?.endMMR}</h5>
-                        <h5>{newOrder?.countLP}</h5>
-                        <h5>{newOrder?.cost}</h5>
+                        <h5>Начальный ММР: {newOrder?.startMMR}</h5>
+                        <h5>Конечный ММР: {newOrder?.endMMR}</h5>
+                        <h5>Количество игр SD: {newOrder?.countLP}</h5>
+                        <h5>Стоимость: {newOrder?.cost} руб.</h5>
                         <h5>{newOrder?.status}</h5>
                         
                     </div>
                     <div>
                         {
                             newOrder?.status == "Ожидает оплаты"
-                                ? <button type="submit" className={style.submit} onClick={() => { axios.get(`/api/user/getStatusInProcess?email=${localStorage.getItem("email")}`) }}>Оплатить</button>
+                                ? 
+                                <div><button type="submit" className={style.submit} onClick={() => { axios.get(`/api/user/getStatusInProcess?email=${localStorage.getItem("email")}`) }}><span>Оплатить</span></button>
+                                    <button type="submit" className={style.submit_cancel} onClick={() => { axios.get(`/api/user/getStatusDelete?email=${localStorage.getItem("email")}`) }}><span>Отменить</span></button>
+                                </div>
                                 : newOrder?.status == "Ожидает подтверждения" 
-                                    ? <button type="submit" className={style.submit} onClick={() => { axios.get(`/api/user/getStatusDelete?email=${localStorage.getItem("email")}`) }}>Отменить</button>
-                                    : <button type="submit" className={style.submit} onClick={() => { axios.get(`/api/user/getStatusDelete?email=${localStorage.getItem("email")}`) }}>Задать вопрос</button>
+                                    ? <button type="submit" className={style.submit_cancel} onClick={() => { axios.get(`/api/user/getStatusDelete?email=${localStorage.getItem("email")}`) }}><span>Отменить</span></button>
+                                    : <button type="submit" className={style.submit} ><span>Задать вопрос</span></button>
                         }
                     </div>
                 </div>
             </div>
-            <div>
+            <div className={style.wrapper}>
+                <div className={style.achiv_rect}>
+                </div>
+                <h1> История заказов </h1>
+                <div className={style.achiv_rect}>
+                </div>
                 {user?.orders.length !== 0 ? <table className={style.table}>
                     <thead>
                         <tr>

@@ -5,6 +5,8 @@ import UserProfile from "./UserProfile/UserProfile";
 import AdminProfile from "./AdminProfile/AdminProfile";
 import BoosterProfile from "./BoosterProfile/BoosterProfile";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../redux/hooks";
+import { dropUser } from "../../redux/userSlice";
 
 type UserProfileTypes = {
     id: number;
@@ -18,6 +20,7 @@ type UserProfileTypes = {
 
 const Profile = () => {
 
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const [user, setUser] = React.useState<UserProfileTypes>();
@@ -27,19 +30,20 @@ const Profile = () => {
 
     return (
         <div className={style.wrapper}>
+            <button className={style.exitButton} onClick={
+                () => {
+                    dispatch(dropUser())
+                    localStorage.clear();
+                    navigate("/");
+                }
+            }>Выйти
+            </button>
             {(user?.role === "admin")
                 ? <AdminProfile/>
                 : !(user?.role === "booster")
                     ? <UserProfile />
                     : <BoosterProfile />
             }
-            <button className={style.exitButton} onClick={
-                () => {
-                    localStorage.clear();
-                    navigate("/");
-                }
-            }>Выйти
-            </button>
         </div>
     );
 }

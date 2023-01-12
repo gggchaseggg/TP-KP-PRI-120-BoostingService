@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin: 20px 10px;
 }
 
 .wrapper_row {
@@ -13,7 +14,7 @@
     display: flex;
     height: auto;
     width: 700px;
-    margin-top: 70px;
+    margin-top: 40px;
     border: 1px solid #C147E9;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
 
@@ -32,10 +33,12 @@
     flex-direction: column;
     height: auto;
     width: 500px;
-    margin-top: 70px;
+    margin-top: 40px;
     border: 1px solid #C147E9;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    h5{
+        margin-left: -120px;
+    }
 }
 
 .infoUser {
@@ -52,112 +55,46 @@
     padding-top: 70px;
 }
 
-#service, #historyService {
-    display: none;
+.table {
+    border-spacing: 0;
+
+    td {
+        padding: 10px;
+        border: 1px solid #810CA8;
+    }
+
+    thead {
+        background: #C147E9;
+    }
+
+    tbody > tr:nth-child(even) {
+        background: #E5B8F4;
+    }
 }
 
-//Кнопки  для перехода между услугами
-.radioButtons {
-    width: 1200px;
+.userItem {
+    list-style-type: none;
+
+    .userItem__login {
+        margin-right: 10px;
+    }
+}
+
+.achiv_rect {
+    background: linear-gradient(to top left, #A66CFF, #F7A4A4);
+    width: 100%;
+    height: 3px;
+    margin: 10px 0px;
+}
+button {
     display: flex;
-    justify-content: center;
     align-items: center;
-
-    & label {
-        width: 50%;
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 40px;
-        text-align: center;
-        color: #000000;
-        border: 2px solid rgba(0, 0, 0, 0.1);
-        border-radius: 6px;
-        transition: border-bottom-color 0.3s linear;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}
-
-//Активная кнопка перехода
-input#service:checked ~ label#serviceLabel,
-input#historyService:checked ~ label#historyServiceLabel,
-{
-    background: linear-gradient(to top left, #810CA8, #C147E9);
-    color: #F9F9F9;
-    border-radius: 6px;
-}
-
-//Формы
-.serviceForm, .historyService {
-    display: none;
-    padding-top: 50px;
-    height: auto;
-    width: 900px;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    border-radius: 6px;
-
-    h5 {
-        margin-top: 10px;
-        color: #F58840;
-    }
-
-    & > form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-
-.radioButtons:has(input#service:checked) ~ .boostForm {
-    display: block;
-}
-
-.radioButtons:has(input#historyService:checked) ~ .calibrationForm {
-    display: block;
-}
-
-
-//Поля ввода
-input.input {
-    width: 100px;
-    height: 40px;
-    background: #DDDFE6;
-    border-radius: 6px;
-    outline: none;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    color: #00093C;
-    border: 2px solid transparent;
     text-align: center;
-
-    &:hover {
-        background: rgba(221, 223, 230, 0.7);
-        border: 1px solid #A91079;
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    &:focus {
-        border: 2px solid #A91079;
-    }
-
-    &::placeholder {
-        font-family: 'Montserrat',sans-serif;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 17px;
-        color: #A91079;
-    }
 }
-
-//Кнопка подтверждения
-button.submit {
+.submit {
     height: 50px;
-    padding: 0 60px;
-    margin: 10px 0;
+    width: 260px;
+    margin: 10px 10px;
     background: linear-gradient(to top left,#810CA8, #C147E9);
     border-radius: 6px;
     border: none;
@@ -166,6 +103,8 @@ button.submit {
     line-height: 26px;
     color: #FFFFFF;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
 
     &:hover {
         background: linear-gradient(to top left, #810CA8, #C147E9);
@@ -178,36 +117,36 @@ button.submit {
     }
 }
 
-input[type="range"] {
-    -webkit-appearance: none;
-    margin-top: 15px;
-    width: 200px;
-    height: 7px;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 5px;
-    background-image: linear-gradient(#FFD384, #FFD384);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+a.submit {
+    text-decoration: none;
 
-    &:focus {
-        outline: none;
+    &:hover {
+        color: white;
     }
 }
 
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background: #F58840;
-    cursor: ew-resize;
-    box-shadow: 0 0 2px 0 #555;
-    transition: background .3s ease-in-out;
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-    -webkit-appearance: none;
-    box-shadow: none;
+.submit_cancel {
+    height: 50px;
+    width: 260px;
+    margin: 10px 10px;
+    background: linear-gradient(to top left,#D3756B, #A75D5D);
+    border-radius: 6px;
     border: none;
-    background: transparent;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 26px;
+    color: #FFFFFF;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        background: linear-gradient(to top left,#D3756B, #A75D5D);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+        box-shadow: none;
+        transform: translate(1px,1px);
+    }
 }

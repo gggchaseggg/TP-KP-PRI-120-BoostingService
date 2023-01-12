@@ -58,19 +58,20 @@ const UserProfile = () => {
     //React.useEffect(() => { axios.get(`api/admin/blockUser?email=${localStorage.getItem("email")}`).then(({ data }) => setUser(data)) }, [])
 
     return (
-        <div>
-            <h1> Я админ </h1>
-            <form>
+        <div className={style.wrapper}>
                 <input type="email"
                     className={style.input}
                     placeholder={"E-mail"}
                     autoComplete={"off"}
                     value={emailForBlock}
-                    onChange={changeEmail}                />
-                <button type="submit" className={style.submit} onClick={() => { axios.get(`/api/admin/blockUser?email=${emailForBlock}`) }}>Заблокировать</button>
-                <button type="submit" className={style.submit} onClick={() => { axios.get(`/api/admin/unblockUser?email=${emailForBlock}`) }}>Разблокировать</button>
-                <button type="submit" className={style.submit} onClick={() => { axios.get(`/api/admin/setrolebooster?email=${emailForBlock}`) }}>Сделать бустером</button>
-            </form>
+                    onChange={changeEmail}
+            />
+            <div className={style.forbuttons}>
+                <button type="submit" className={style.submit} onClick={() => { axios.get(`/api/admin/blockUser?email=${emailForBlock}`) }}><span>Заблокировать</span></button>
+                <button type="submit" className={style.submit} onClick={() => { axios.get(`/api/admin/unblockUser?email=${emailForBlock}`) }}><span>Разблокировать</span></button>
+                <button type="submit" className={style.submit} onClick={() => { axios.get(`/api/admin/setrolebooster?email=${emailForBlock}`) }}><span>Сделать бустером</span></button>
+            </div>
+
         </div>
     );
 }
