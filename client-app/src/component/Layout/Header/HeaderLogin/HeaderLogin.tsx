@@ -3,6 +3,7 @@ import style from "./HeaderLogin.module.scss";
 import PATHS from "../../../../data/paths";
 import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
+import { useAppSelector } from '../../../../redux/hooks';
 
 type UserProfileTypes = {
     id: number;
@@ -14,21 +15,16 @@ type UserProfileTypes = {
 }
 
 const HeaderLogin = () => {
-    const [user, setUser] = React.useState<UserProfileTypes>();
-    const [name, setName] = React.useState<string | undefined>();
 
-    React.useEffect(() => {
-        var email = localStorage.getItem("email")
-        if (email !== null) axios.get(`/api/account/getnickname/${email}`).then(({ data }) => setName(data))
-    }, [user])
+    const user = useAppSelector(state => state.user)
 
     return (
         <>
-            {name ?
+            {user.nickname ?
                 <Link to={PATHS.PROFILE} className={style.colorLink}>
                     <div>
                     <span>{
-                       name
+                            user.nickname
                         }</span>
                     </div>
                 </Link>
