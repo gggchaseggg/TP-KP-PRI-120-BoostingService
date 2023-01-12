@@ -29,6 +29,7 @@ namespace BoostingService.Controllers
 
             var orders = _context.Orders
                 .Where(u => u.user == userFromDB)
+                .OrderByDescending(u => u.dateOfCreate)
                 .ToList();
 
             List<ListOrder> viewListOrders = new List<ListOrder>();

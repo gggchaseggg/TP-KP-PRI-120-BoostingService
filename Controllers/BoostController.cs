@@ -121,5 +121,82 @@ namespace BoostingService.Controllers
                 status = order.status
             };
         }
+
+        [HttpGet("getOrderStatusCancel")]
+        public ListOrder getOrderStatusCancel(string email, int orderid)
+        {
+
+            var boosterFromDB = _context.Users.Where(u => u.email == email).OrderBy(u => u.id).FirstOrDefault();
+
+
+            var order = _context.Orders
+                .Where(u => u.id == orderid)
+                .FirstOrDefault();
+
+            List<ListOrder> viewListOrders = new List<ListOrder>();
+
+            order.booster = boosterFromDB;
+            order.status = "Отменен";
+            _context.SaveChanges();
+
+            return new ListOrder()
+            {
+                id = order.id,
+                startMMR = order.startMMR,
+                endMMR = order.endMMR,
+                countLP = order.countLP,
+                cost = order.cost,
+                status = order.status
+            };
+        }
+
+        [HttpGet("check")]
+        public ListOrder checkOrder(string email)
+        {
+
+            var userid = _context.Users.Where(u => u.email == email).OrderBy(u => u.id).First().id;
+            var userFromDB = _context.Users.Where(u => u.email == email).OrderBy(u => u.id).FirstOrDefault();
+
+            var orders = _context.Orders
+                .Where(u => u.status != "Выполнен" && u.status != "Отменен" && u.booster == userFromDB)
+                .FirstOrDefault();
+
+            if (orders is null) return null;
+
+            return new ListOrder()
+            {
+                id = orders.id,
+                startMMR = orders.startMMR,
+                endMMR = orders.endMMR,
+                countLP = orders.countLP,
+                cost = orders.cost,
+                status = orders.status
+            };
+        }
+
+        [HttpGet("getStatusComplete")]
+        public ListOrder getStatusComplete(string email)
+        {
+
+            var userid = _context.Users.Where(u => u.email == email).OrderBy(u => u.id).First().id;
+            var userFromDB = _context.Users.Where(u => u.email == email).OrderBy(u => u.id).FirstOrDefault();
+
+            var orders = _context.Orders
+                .Where(u => u.status != "Выполнен" && u.status != "Отменен" && u.booster == userFromDB)
+                .FirstOrDefault();
+
+            orders.status = "Выполнен";
+            _context.SaveChanges();
+
+            return new ListOrder()
+            {
+                id = orders.id,
+                startMMR = orders.startMMR,
+                endMMR = orders.endMMR,
+                countLP = orders.countLP,
+                cost = orders.cost,
+                status = orders.status
+            };
+        }
     }
 }
