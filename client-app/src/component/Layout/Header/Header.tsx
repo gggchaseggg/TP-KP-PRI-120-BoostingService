@@ -5,12 +5,15 @@ import PATHS from "../../../data/paths";
 import logo from "./logo.png";
 import HeaderLogin from "./HeaderLogin/HeaderLogin";
 import axios from "axios";
+import { useAppSelector } from "../../../redux/hooks";
 
 
 export default function Header(){
    
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isServiceVisible, setIsServiceVisible] = useState(true);
+
+    const user = useAppSelector(state => state.user)
 
     const toggleModal = () => {
         setIsModalVisible(wasModalVisible => !wasModalVisible)
@@ -20,8 +23,10 @@ export default function Header(){
         let email = localStorage.getItem("email")
         if (email !== null) axios.get(`/api/account/getuserinfo?email=${email}`).then((r) => {
             if (r.data.role === "booster") setIsServiceVisible(false)
+            else setIsServiceVisible(true)
         })
-    }, [])
+        else setIsServiceVisible(true)
+    }, [user])
 
     return (
         <div className={style.wrapper}>

@@ -3,6 +3,8 @@ import axios from "axios";
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import style from "./Login.module.scss";
+import { useAppDispatch } from "../../redux/hooks";
+import { setUser } from "../../redux/userSlice";
 
 type FormRegisterValueType = {
 
@@ -21,6 +23,8 @@ type FormLoginValueType = {
 const Login = () => {
 
     const navigate = useNavigate();
+
+    const dispatch = useAppDispatch();
 
     const {
         register: registerRegister,
@@ -52,6 +56,7 @@ const Login = () => {
         if (accountRole === "err") localStorage.clear();
         else {
             localStorage.setItem("email", data.logEmail);
+            axios.get(`/api/account/getnickname/${data.logEmail}`).then(({ data }) => dispatch(setUser({ nickname: data })))
             document.cookie = `role=${accountRole};`
             loginReset();
             navigate("/profile");
