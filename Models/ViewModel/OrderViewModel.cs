@@ -7,6 +7,6 @@
         public int startMMR { get; set; }
         public int endMMR { get; set; }
         public int countLP { get; set; }
-        public int cost { get; set; }
+        public float cost { get; set; }
     }
 }

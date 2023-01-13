@@ -35,7 +35,7 @@ namespace BoostingService.Controllers
                 startMMR = viewOrder.startMMR,
                 endMMR = viewOrder.endMMR,
                 countLP = viewOrder.countLP,
-                cost = viewOrder.cost,
+                cost = (int)viewOrder.cost,
                 status = "Ожидает подтверждения",
                 dateOfCreate = DateTime.Now
             };

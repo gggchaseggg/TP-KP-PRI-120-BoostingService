@@ -23,9 +23,13 @@ const UserProfile = () => {
 
     const [user, setUser] = React.useState<UserProfileTypes>();
     const [newOrder, setNewOrder] = React.useState<OrderWaitingTypes>();
+    const [canReloadOrder, setCanReloadOrder] = React.useState<boolean>(false)
 
     React.useEffect(() => { axios.get(`api/user/getUserInfo?email=${localStorage.getItem("email")}`).then(({ data }) => setUser(data)) }, [])
-    React.useEffect(() => { axios.get(`api/user/getNewOrderInfo?email=${localStorage.getItem("email")}`).then(({ data }) => setNewOrder(data)) }, [])
+    React.useEffect(() => {
+        console.log(123)
+        axios.get(`api/user/getNewOrderInfo?email=${localStorage.getItem("email")}`).then(({ data }) => setNewOrder(data))
+    }, [canReloadOrder])
 
     return (
         <div>
@@ -54,11 +58,18 @@ const UserProfile = () => {
                         {
                             newOrder?.status == "Ожидает оплаты"
                                 ? 
-                                <div><button type="submit" className={style.submit} onClick={() => { axios.get(`/api/user/getStatusInProcess?email=${localStorage.getItem("email")}`) }}><span>Оплатить</span></button>
-                                    <button type="submit" className={style.submit_cancel} onClick={() => { axios.get(`/api/user/getStatusDelete?email=${localStorage.getItem("email")}`) }}><span>Отменить</span></button>
+                                <div><button type="submit" className={style.submit} onClick={() => {
+                                    axios.get(`/api/user/getStatusInProcess?email=${localStorage.getItem("email")}`).then(() => setCanReloadOrder(prevState => !prevState))
+                                }}><span>Оплатить</span></button>
+                                    <button type="submit" className={style.submit_cancel} onClick={() => {
+                                        axios.get(`/api/user/getStatusDelete?email=${localStorage.getItem("email")}`).then(() => setCanReloadOrder(prevState => !prevState))
+                                    }}><span>Отменить</span></button>
                                 </div>
                                 : newOrder?.status == "Ожидает подтверждения" 
-                                    ? <button type="submit" className={style.submit_cancel} onClick={() => { axios.get(`/api/user/getStatusDelete?email=${localStorage.getItem("email")}`) }}><span>Отменить</span></button>
+                                    ? <button type="submit" className={style.submit_cancel} onClick={() => {
+                                        axios.get(`/api/user/getStatusDelete?email=${localStorage.getItem("email")}`).then(() => setCanReloadOrder(prevState => !prevState))
+                                        
+                                    }}><span>Отменить</span></button>
                                     : <button type="submit" className={style.submit} ><span>Задать вопрос</span></button>
                         }
                     </div>
