@@ -23,10 +23,13 @@ const BoosterProfile = () => {
     const [user, setUser] = React.useState<UserProfileTypes>();
     const [newOrder, setNewOrder] = React.useState<UserProfileTypes>();
     const [orderNow, setOrderNow] = React.useState<OrderWaitingTypes>();
+    const [canReloadOrder, setCanReloadOrder] = React.useState<boolean>(false)
 
-    React.useEffect(() => { axios.get(`api/booster/getBoosterInfo?email=${localStorage.getItem("email")}`).then(({ data }) => setUser(data)) }, [])
-    React.useEffect(() => { axios.get(`api/booster/getNewBoosterInfo?email=${localStorage.getItem("email")}`).then(({ data }) => setNewOrder(data)) }, [])
-    React.useEffect(() => { axios.get(`api/booster/check?email=${localStorage.getItem("email")}`).then(({ data }) => setOrderNow(data)) }, [])
+    React.useEffect(() => {
+        axios.get(`api/booster/getBoosterInfo?email=${localStorage.getItem("email")}`).then(({ data }) => setUser(data))
+        axios.get(`api/booster/getNewBoosterInfo?email=${localStorage.getItem("email")}`).then(({ data }) => setNewOrder(data))
+        axios.get(`api/booster/check?email=${localStorage.getItem("email")}`).then(({ data }) => setOrderNow(data))
+    }, [canReloadOrder])
 
     return (
         <div>
@@ -58,7 +61,7 @@ const BoosterProfile = () => {
                             orderNow?.status == "Выполняется"
                                 &&
                                 <div>
-                                    <button type="submit" className={style.submit} onClick={() => { axios.get(`/api/booster/getStatusComplete?email=${localStorage.getItem("email")}`) }}><span>Выполнен</span></button>
+                                    <button type="submit" className={style.submit} onClick={() => { axios.get(`/api/booster/getStatusComplete?email=${localStorage.getItem("email")}`).then(() => setCanReloadOrder(prevState => !prevState)) }}><span>Выполнен</span></button>
                                 </div>
                         }
                     </div>
@@ -91,11 +94,11 @@ const BoosterProfile = () => {
                             <td className={style.userItem__login}>{item.cost}</td>
                             <td className={style.userItem__login}>{item.status}</td>
                             <td>
-                                <button onClick={() => { axios.get(`/api/booster/getNewOrder?email=${localStorage.getItem("email")}&orderid=${item.id}`) }}>Взять в работу
+                                <button onClick={() => { axios.get(`/api/booster/getNewOrder?email=${localStorage.getItem("email")}&orderid=${item.id}`).then(() => setCanReloadOrder(prevState => !prevState)) }}>Взять в работу
                                 </button>
                             </td>
                             <td>
-                                <button onClick={() => { axios.get(`/api/booster/getOrderStatusCancel?email=${localStorage.getItem("email")}&orderid=${item.id}`) }}>Отменить
+                                <button onClick={() => { axios.get(`/api/booster/getOrderStatusCancel?email=${localStorage.getItem("email")}&orderid=${item.id}`).then(() => setCanReloadOrder(prevState => !prevState)) }}>Отменить
                                 </button>
                             </td>
                         </tr>)}
