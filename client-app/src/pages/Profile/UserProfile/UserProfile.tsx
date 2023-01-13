@@ -25,9 +25,9 @@ const UserProfile = () => {
     const [newOrder, setNewOrder] = React.useState<OrderWaitingTypes>();
     const [canReloadOrder, setCanReloadOrder] = React.useState<boolean>(false)
 
-    React.useEffect(() => { axios.get(`api/user/getUserInfo?email=${localStorage.getItem("email")}`).then(({ data }) => setUser(data)) }, [])
     React.useEffect(() => {
         console.log(123)
+        axios.get(`api/user/getUserInfo?email=${localStorage.getItem("email")}`).then(({ data }) => setUser(data))
         axios.get(`api/user/getNewOrderInfo?email=${localStorage.getItem("email")}`).then(({ data }) => setNewOrder(data))
     }, [canReloadOrder])
 
