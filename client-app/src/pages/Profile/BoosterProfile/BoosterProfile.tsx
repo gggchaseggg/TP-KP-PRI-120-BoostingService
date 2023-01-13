@@ -42,7 +42,7 @@ const BoosterProfile = () => {
                     </div>
                 </div>
                 <div className={style.wrapper1_2}>
-                    {!!orderNow 
+                    {!!orderNow
                         ?<div>
                             <h4>Текущий заказ</h4>
                             <h5>Начальный ММР: {orderNow?.startMMR}</h5>
@@ -91,11 +91,24 @@ const BoosterProfile = () => {
                             <td className={style.userItem__login}>{item.cost}</td>
                             <td className={style.userItem__login}>{item.status}</td>
                             <td>
-                                <button onClick={() => { axios.get(`/api/booster/getNewOrder?email=${localStorage.getItem("email")}&orderid=${item.id}`) }}>Взять в работу
+                                <button onClick={() => {
+                                    axios.get(`/api/booster/getNewOrder?email=${localStorage.getItem("email")}&orderid=${item.id}`)
+                                    let tmpNewOrder = newOrder;
+                                    // @ts-ignore
+                                    tmpNewOrder?.orders = newOrder?.orders.filter((order) => order.id !== item.id)
+                                    setNewOrder(tmpNewOrder);
+                                    }
+                                }>Взять в работу
                                 </button>
                             </td>
                             <td>
-                                <button onClick={() => { axios.get(`/api/booster/getOrderStatusCancel?email=${localStorage.getItem("email")}&orderid=${item.id}`) }}>Отменить
+                                <button onClick={() => {
+                                  axios.get(`/api/booster/getOrderStatusCancel?email=${localStorage.getItem("email")}&orderid=${item.id}`)
+                                    let tmpNewOrder = newOrder;
+                                    // @ts-ignore
+                                    tmpNewOrder?.orders = newOrder?.orders.filter((order) => order.id !== item.id)
+                                    setNewOrder(tmpNewOrder);
+                                }}>Отменить
                                 </button>
                             </td>
                         </tr>)}
@@ -129,8 +142,8 @@ const BoosterProfile = () => {
                     </tbody>
                 </table> : <h2>Нет заказов</h2>}
             </div>
-            
-                
+
+
         </div>
     );
 }
