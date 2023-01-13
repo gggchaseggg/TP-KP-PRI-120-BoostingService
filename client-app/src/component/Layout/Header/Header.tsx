@@ -21,10 +21,12 @@ export default function Header(){
 
     useEffect(() => {
         let email = localStorage.getItem("email")
-        if (email !== null) axios.get(`/api/account/getuserinfo?email=${email}`).then((r) => {
+        if (email !== null) {axios.get(`/api/account/getuserinfo?email=${email}`).then((r) => {
             if (r.data.role === "booster") setIsServiceVisible(false)
             else setIsServiceVisible(true)
         })
+        }
+        else setIsServiceVisible(true)
     }, [user])
 
     return (
