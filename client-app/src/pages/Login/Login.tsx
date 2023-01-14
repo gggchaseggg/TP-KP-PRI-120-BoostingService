@@ -30,7 +30,10 @@ const Login = () => {
         register: registerRegister,
         handleSubmit: registerHandleSubmit,
         reset: registerReset,
-        setError: registerSetError
+        setError: registerSetError,
+        formState: {
+            errors: registerErrors
+        }
     } = useForm<FormRegisterValueType>();
 
     const onRegisterSubmit: SubmitHandler<FormRegisterValueType> = async (data) => {
@@ -48,12 +51,18 @@ const Login = () => {
         register: loginRegister,
         handleSubmit: loginHandleSubmit,
         reset: loginReset,
-        setError: loginSetError
+        setError: loginSetError,
+        formState: {
+            errors:loginErrors
+        }
     } = useForm<FormLoginValueType>();
 
     const onLoginSubmit: SubmitHandler<FormLoginValueType> = async (data) => {
         const accountRole = await axios.post("/api/account/login", data).then(({ data }) => data);
-        if (accountRole === "err") localStorage.clear();
+        if (accountRole === "err") {
+            localStorage.clear();
+            loginSetError("logEmail", {type: "custom", message: "chto-to ne tak"})
+        }
         else {
             localStorage.setItem("email", data.logEmail);
             axios.get(`/api/account/getnickname/${data.logEmail}`).then(({ data }) => dispatch(setUser({ nickname: data })))
@@ -80,6 +89,9 @@ const Login = () => {
             </div>
             <div className={style.loginForm}>
                 <form onSubmit={loginHandleSubmit(onLoginSubmit)}>
+                    {
+                        loginErrors.logEmail && <span className={style.loginError}>Что-то пошло не так</span>
+                    }
                     <input type="email"
                         className={style.input}
                         {...loginRegister("logEmail", { required: true })}
@@ -90,11 +102,15 @@ const Login = () => {
                         {...loginRegister("logPassword", { required: true })}
                         placeholder={"Пароль"}
                         autoComplete={"off"} />
+                    
                     <button type="submit" className={style.submit}>Войти</button>
                 </form>
             </div>
             <div className={style.registerForm}>
                 <form onSubmit={registerHandleSubmit(onRegisterSubmit)}>
+                    {
+                        registerErrors.regEmail && <span className={style.registerError}>Что-то пошло не так</span>
+                    }
                     <input type="nickname"
                         className={style.input}
                         {...registerRegister("regNickname", { required: true })}

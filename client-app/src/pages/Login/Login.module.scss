@@ -120,3 +120,21 @@ button.submit {
         transform: translate(1px,1px);
     }
 }
+
+
+.loginForm {
+    position: relative;
+    span.loginError {
+        position: absolute;
+        top: 32px
+    }
+}
+
+.registerForm {
+    position: relative;
+
+    span.registerError {
+        position: absolute;
+        top: 32px
+    }
+}
